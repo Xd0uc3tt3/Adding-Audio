@@ -31,7 +31,7 @@ public class SFXManager : MonoBehaviour
     //called in the PlayerController Script
     public void PlayerShoot()
     {
-        SFXaudioSource.PlayOneShot(playerShoot);
+        PlayWithPitchVariation(playerShoot);
     }
 
     //called in the PlayerController Script
@@ -49,7 +49,7 @@ public class SFXManager : MonoBehaviour
     //called in the AsteroidDestroy script
     public void AsteroidExplosion()
     {
-        SFXaudioSource.PlayOneShot(asteroidExplosion);
+        PlayWithPitchVariation(asteroidExplosion);
     }
 
     
@@ -65,4 +65,13 @@ public class SFXManager : MonoBehaviour
         BgMusicAudioSource.Play();
 
     }
+
+    private void PlayWithPitchVariation(AudioClip clip, float pitchVariance = 0.05f)
+    {
+        float originalPitch = SFXaudioSource.pitch;
+        SFXaudioSource.pitch = Random.Range(1f - pitchVariance, 1f + pitchVariance);
+        SFXaudioSource.PlayOneShot(clip);
+        SFXaudioSource.pitch = originalPitch;
+    }
+
 }
